@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply — Ashley Dawn 90-Day Programme</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #E91E8C;
+    --pink-light: #FF4EAD;
+    --dark: #0E0812;
+    --dark-mid: #1A0F22;
+    --dark-card: #1F1229;
+    --white: #FFFFFF;
+    --white-70: rgba(255,255,255,0.7);
+    --white-40: rgba(255,255,255,0.4);
+    --white-10: rgba(255,255,255,0.07);
+    --green: #00C896;
+    --green-bg: rgba(0,200,150,0.12);
+    --error: #FF5B5B;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  nav {
+    background: rgba(14,8,18,0.95);
+    border-bottom: 1px solid rgba(233,30,140,0.2);
+    padding: 16px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--white); }
+  .nav-logo span { color: var(--pink); }
+  .nav-back {
+    font-size: 13px; color: var(--white-40);
+    text-decoration: none; display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--white); }
+
+  .page-wrap {
+    max-width: 780px; margin: 0 auto;
+    padding: 70px 48px 100px;
+  }
+
+  .page-eyebrow {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--pink); font-weight: 600; margin-bottom: 14px;
+  }
+  .page-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px; line-height: 1.15; color: var(--white);
+    margin-bottom: 14px;
+  }
+  .page-h1 em { color: var(--pink); font-style: italic; }
+  .page-sub {
+    font-size: 16px; color: var(--white-70);
+    line-height: 1.75; margin-bottom: 48px; max-width: 560px;
+  }
+
+  /* progress */
+  .progress-wrap { margin-bottom: 40px; }
+  .progress-labels {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--white-40);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .progress-bar-bg {
+    height: 3px; background: rgba(255,255,255,0.08);
+    border-radius: 3px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 3px; background: var(--pink);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  /* steps */
+  .step { display: none; }
+  .step.active { display: block; }
+
+  .step-num {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--white-40); margin-bottom: 8px;
+  }
+  .step-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; color: var(--white);
+    line-height: 1.3; margin-bottom: 8px;
+  }
+  .step-hint {
+    font-size: 14px; color: var(--white-40);
+    margin-bottom: 28px; line-height: 1.6;
+  }
+
+  /* options grid */
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+  .option-btn {
+    background: var(--white-10);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 18px 20px;
+    color: var(--white-70); font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    text-align: left; cursor: pointer;
+    transition: all 0.2s; line-height: 1.5;
+  }
+  .option-btn:hover {
+    border-color: rgba(233,30,140,0.5);
+    background: rgba(233,30,140,0.08);
+    color: var(--white);
+  }
+  .option-btn.selected {
+    border-color: var(--pink);
+    background: rgba(233,30,140,0.12);
+    color: var(--white);
+  }
+  .option-btn .opt-icon {
+    display: block; font-size: 20px; margin-bottom: 8px;
+  }
+  .option-btn .opt-label { font-weight: 500; display: block; margin-bottom: 2px; }
+  .option-btn .opt-desc { font-size: 12px; color: var(--white-40); display: block; }
+  .option-btn.selected .opt-desc { color: rgba(233,30,140,0.7); }
+
+  /* text input */
+  .field-wrap { margin-bottom: 32px; }
+  .field-label {
+    display: block; font-size: 13px; color: var(--white-40);
+    margin-bottom: 8px; letter-spacing: 0.03em;
+  }
+  .field-input {
+    width: 100%; background: var(--white-10);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 16px 18px;
+    color: var(--white); font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .field-input:focus { border-color: rgba(233,30,140,0.5); }
+  .field-input::placeholder { color: rgba(255,255,255,0.2); }
+  .field-textarea {
+    resize: vertical; min-height: 100px; line-height: 1.6;
+  }
+  .field-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+  .field-select option { background: #1A0F22; color: white; }
+
+  /* nav buttons */
+  .step-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+  .btn-next {
+    background: var(--pink); color: white;
+    padding: 14px 36px; border-radius: 50px;
+    font-size: 14px; font-weight: 600;
+    border: none; cursor: pointer;
+    letter-spacing: 0.02em;
+    box-shadow: 0 0 24px rgba(233,30,140,0.4);
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-next:hover {
+    background: var(--pink-light);
+    transform: translateY(-1px);
+    box-shadow: 0 0 36px rgba(233,30,140,0.55);
+  }
+  .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn-prev {
+    background: none; border: none;
+    color: var(--white-40); font-size: 14px;
+    cursor: pointer; padding: 8px 0;
+    font-family: 'DM Sans', sans-serif;
+    transition: color 0.2s;
+  }
+  .btn-prev:hover { color: var(--white); }
+
+  .error-msg {
+    font-size: 13px; color: var(--error);
+    margin-top: -20px; margin-bottom: 16px;
+    display: none;
+  }
+  .error-msg.show { display: block; }
+
+  /* final step */
+  .final-note {
+    background: rgba(233,30,140,0.08);
+    border: 1px solid rgba(233,30,140,0.2);
+    border-radius: 14px; padding: 20px 24px;
+    font-size: 13px; color: var(--white-70);
+    line-height: 1.7; margin-bottom: 28px;
+  }
+  .final-note strong { color: var(--pink); font-weight: 500; }
+
+  .btn-submit {
+    background: var(--pink); color: white;
+    padding: 16px 44px; border-radius: 50px;
+    font-size: 15px; font-weight: 600;
+    border: none; cursor: pointer;
+    letter-spacing: 0.02em;
+    box-shadow: 0 0 32px rgba(233,30,140,0.45);
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    width: 100%;
+  }
+  .btn-submit:hover {
+    background: var(--pink-light);
+    transform: translateY(-1px);
+    box-shadow: 0 0 48px rgba(233,30,140,0.6);
+  }
+  .submit-note {
+    font-size: 12px; color: var(--white-40);
+    text-align: center; margin-top: 12px; letter-spacing: 0.03em;
+  }
+
+  /* sidebar trust signals */
+  .layout { display: grid; grid-template-columns: 1fr 280px; gap: 48px; align-items: start; }
+  .trust-card {
+    background: var(--dark-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 28px;
+    position: sticky; top: 100px;
+  }
+  .trust-title {
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--white-40); margin-bottom: 20px;
+  }
+  .trust-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    margin-bottom: 18px; padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .trust-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .trust-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0; margin-top: 6px;
+  }
+  .trust-text { font-size: 13px; color: var(--white-70); line-height: 1.6; }
+  .trust-text strong { color: var(--white); font-weight: 500; display: block; }
+
+  .glow-top {
+    position: fixed; top: -120px; right: -120px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(233,30,140,0.1) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  @media (max-width: 800px) {
+    nav { padding: 14px 20px; }
+    .page-wrap { padding: 50px 20px 80px; }
+    .page-h1 { font-size: 30px; }
+    .layout { grid-template-columns: 1fr; }
+    .trust-card { display: none; }
+    .options-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-top"></div>
+
+<nav>
+  <div class="nav-logo">Ashley <span>Dawn</span> Fitness</div>
+  <a href="ashley_dawn_landing_page_v2.html" class="nav-back">&#8592; Back to programme</a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-eyebrow">90-Day Coaching Programme</div>
+  <h1 class="page-h1">Apply for your <em>transformation</em></h1>
+  <p class="page-sub">Answer 6 quick questions so Ashley can understand exactly where you are and confirm the programme is the right fit for you. Takes less than 3 minutes.</p>
+
+  <div class="progress-wrap">
+    <div class="progress-labels">
+      <span id="prog-label">Question 1 of 6</span>
+      <span id="prog-pct">17%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="prog-bar" style="width:17%"></div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div>
+
+      <form id="apply-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+        <!-- STEP 1: Name + Email -->
+        <div class="step active" id="step-1">
+          <div class="step-num">Question 1 of 6</div>
+          <div class="step-q">First, let's get to know you</div>
+          <div class="step-hint">Ashley replies personally to every application within 24 hours.</div>
+          <div class="field-wrap">
+            <label class="field-label">Your first name</label>
+            <input class="field-input" type="text" name="first_name" id="inp-name" placeholder="e.g. Sarah" autocomplete="given-name">
+          </div>
+          <div class="field-wrap">
+            <label class="field-label">Your email address</label>
+            <input class="field-input" type="email" name="email" id="inp-email" placeholder="your@email.com" autocomplete="email">
+          </div>
+          <div class="error-msg" id="err-1">Please fill in both fields to continue.</div>
+          <div class="step-nav">
+            <span></span>
+            <button type="button" class="btn-next" onclick="nextStep(1)">Next &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Goal -->
+        <div class="step" id="step-2">
+          <div class="step-num">Question 2 of 6</div>
+          <div class="step-q">What is your main goal right now?</div>
+          <div class="step-hint">Pick the one that feels most urgent for you today.</div>
+          <input type="hidden" name="main_goal" id="val-goal">
+          <div class="options-grid">
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-goal','Lose body fat and get leaner')">
+              <span class="opt-label">Lose body fat</span>
+              <span class="opt-desc">Drop the weight and get leaner</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-goal','Build strength and muscle tone')">
+              <span class="opt-label">Build strength</span>
+              <span class="opt-desc">Get toned and feel more powerful</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-goal','Improve energy and confidence')">
+              <span class="opt-label">Energy and confidence</span>
+              <span class="opt-desc">Feel like myself again</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-goal','All of the above')">
+              <span class="opt-label">All of the above</span>
+              <span class="opt-desc">I want the full transformation</span>
+            </button>
+          </div>
+          <div class="error-msg" id="err-2">Please select an option to continue.</div>
+          <div class="step-nav">
+            <button type="button" class="btn-prev" onclick="prevStep(2)">&#8592; Back</button>
+            <button type="button" class="btn-next" onclick="nextStep(2)">Next &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Biggest struggle -->
+        <div class="step" id="step-3">
+          <div class="step-num">Question 3 of 6</div>
+          <div class="step-q">What has held you back from results so far?</div>
+          <div class="step-hint">Be honest — this helps Ashley understand exactly where you are.</div>
+          <input type="hidden" name="biggest_struggle" id="val-struggle">
+          <div class="options-grid">
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-struggle','No time with my work schedule')">
+              <span class="opt-label">No time</span>
+              <span class="opt-desc">Work takes over everything</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-struggle','Starting and stopping, no consistency')">
+              <span class="opt-label">No consistency</span>
+              <span class="opt-desc">I start strong then fall off</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-struggle','Tried everything, nothing seems to work')">
+              <span class="opt-label">Nothing works</span>
+              <span class="opt-desc">I have tried it all before</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-struggle','Low energy, stress and poor sleep')">
+              <span class="opt-label">Energy and stress</span>
+              <span class="opt-desc">Exhausted before I even start</span>
+            </button>
+          </div>
+          <div class="error-msg" id="err-3">Please select an option to continue.</div>
+          <div class="step-nav">
+            <button type="button" class="btn-prev" onclick="prevStep(3)">&#8592; Back</button>
+            <button type="button" class="btn-next" onclick="nextStep(3)">Next &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Availability -->
+        <div class="step" id="step-4">
+          <div class="step-num">Question 4 of 6</div>
+          <div class="step-q">How much time can you realistically commit each week?</div>
+          <div class="step-hint">There is no wrong answer. Ashley builds the plan around your actual schedule.</div>
+          <input type="hidden" name="weekly_availability" id="val-time">
+          <div class="options-grid">
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-time','2 to 3 hours per week')">
+              <span class="opt-label">2 to 3 hours</span>
+              <span class="opt-desc">Very busy schedule</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-time','3 to 4 hours per week')">
+              <span class="opt-label">3 to 4 hours</span>
+              <span class="opt-desc">Can make some space</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-time','4 to 5 hours per week')">
+              <span class="opt-label">4 to 5 hours</span>
+              <span class="opt-desc">Ready to commit properly</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-time','5+ hours per week')">
+              <span class="opt-label">5 or more hours</span>
+              <span class="opt-desc">Fully committed to results</span>
+            </button>
+          </div>
+          <div class="error-msg" id="err-4">Please select an option to continue.</div>
+          <div class="step-nav">
+            <button type="button" class="btn-prev" onclick="prevStep(4)">&#8592; Back</button>
+            <button type="button" class="btn-next" onclick="nextStep(4)">Next &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 5: Where they train -->
+        <div class="step" id="step-5">
+          <div class="step-num">Question 5 of 6</div>
+          <div class="step-q">Where do you prefer to train?</div>
+          <div class="step-hint">Ashley creates your plan around whatever you have available.</div>
+          <input type="hidden" name="training_location" id="val-location">
+          <div class="options-grid">
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-location','At home with minimal equipment')">
+              <span class="opt-label">At home</span>
+              <span class="opt-desc">Dumbbells or resistance bands</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-location','Gym membership')">
+              <span class="opt-label">At the gym</span>
+              <span class="opt-desc">Full equipment available</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-location','Mix of home and gym')">
+              <span class="opt-label">Mix of both</span>
+              <span class="opt-desc">Depends on the week</span>
+            </button>
+            <button type="button" class="option-btn" onclick="selectOption(this,'val-location','Not sure yet')">
+              <span class="opt-label">Not sure yet</span>
+              <span class="opt-desc">Open to recommendations</span>
+            </button>
+          </div>
+          <div class="error-msg" id="err-5">Please select an option to continue.</div>
+          <div class="step-nav">
+            <button type="button" class="btn-prev" onclick="prevStep(5)">&#8592; Back</button>
+            <button type="button" class="btn-next" onclick="nextStep(5)">Next &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 6: Anything else + submit -->
+        <div class="step" id="step-6">
+          <div class="step-num">Question 6 of 6</div>
+          <div class="step-q">Is there anything else Ashley should know?</div>
+          <div class="step-hint">Injuries, medical conditions, past programmes, specific concerns. Leave blank if nothing to add.</div>
+          <div class="field-wrap">
+            <textarea class="field-input field-textarea" name="additional_info" placeholder="Optional — anything that will help Ashley understand your situation better..."></textarea>
+          </div>
+          <div class="field-wrap">
+            <label class="field-label">How did you find Ashley?</label>
+            <select class="field-input field-select" name="how_found">
+              <option value="" disabled selected>Select an option</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Facebook">Facebook</option>
+              <option value="Facebook Ad">Facebook Ad</option>
+              <option value="Instagram Ad">Instagram Ad</option>
+              <option value="Friend or family referral">Friend or family referral</option>
+              <option value="Google search">Google search</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="final-note">
+            By submitting, you agree that Ashley Dawn Fitness may contact you about the programme. <strong>No spam, no obligation.</strong> Ashley replies personally within 24 hours.
+          </div>
+          <button type="submit" class="btn-submit">Submit my application &rarr;</button>
+          <div class="submit-note">Ashley replies personally within 24 hours &nbsp;·&nbsp; No obligation &nbsp;·&nbsp; Limited spaces</div>
+          <div class="step-nav" style="margin-top:20px;">
+            <button type="button" class="btn-prev" onclick="prevStep(6)">&#8592; Back</button>
+            <span></span>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- TRUST SIDEBAR -->
+    <div class="trust-card">
+      <div class="trust-title">Why apply?</div>
+      <div class="trust-item">
+        <div class="trust-dot"></div>
+        <div class="trust-text"><strong>Personalised for your life</strong>Not a generic template. Built around your schedule, your goals, and your body.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-dot"></div>
+        <div class="trust-text"><strong>No obligation</strong>The application is just a conversation starter. No commitment until you are ready.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-dot"></div>
+        <div class="trust-text"><strong>Ashley replies personally</strong>Not an automated system. A real response within 24 hours.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-dot"></div>
+        <div class="trust-text"><strong>Limited spaces</strong>Ashley works with a small group each month to keep quality high.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var currentStep = 1;
+  var totalSteps = 6;
+
+  function updateProgress(step) {
+    var pct = Math.round((step / totalSteps) * 100);
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('prog-pct').textContent = pct + '%';
+    document.getElementById('prog-label').textContent = 'Question ' + step + ' of ' + totalSteps;
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById('step-' + n).classList.add('active');
+    updateProgress(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function nextStep(from) {
+    var err = document.getElementById('err-' + from);
+    if (from === 1) {
+      var name = document.getElementById('inp-name').value.trim();
+      var email = document.getElementById('inp-email').value.trim();
+      if (!name || !email || !email.includes('@')) {
+        err.classList.add('show'); return;
+      }
+    } else {
+      var val = document.getElementById('val-' + ['','','goal','struggle','time','location'][from]);
+      if (from >= 2 && from <= 5 && !val.value) {
+        err.classList.add('show'); return;
+      }
+    }
+    if (err) err.classList.remove('show');
+    currentStep = from + 1;
+    showStep(currentStep);
+  }
+
+  function prevStep(from) {
+    currentStep = from - 1;
+    showStep(currentStep);
+  }
+
+  function selectOption(btn, fieldId, value) {
+    var parent = btn.closest('.options-grid');
+    parent.querySelectorAll('.option-btn').forEach(function(b){ b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    document.getElementById(fieldId).value = value;
+    var errMap = { 'val-goal': 'err-2', 'val-struggle': 'err-3', 'val-time': 'err-4', 'val-location': 'err-5' };
+    var errEl = document.getElementById(errMap[fieldId]);
+    if (errEl) errEl.classList.remove('show');
+  }
+
+  document.getElementById('apply-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    var action = this.action;
+    if (action.includes('YOUR_FORM_ID')) {
+      window.location.href = 'thankyou.html';
+      return;
+    }
+    fetch(action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(r) {
+      if (r.ok) { window.location.href = 'thankyou.html'; }
+      else { window.location.href = 'thankyou.html'; }
+    }).catch(function() { window.location.href = 'thankyou.html'; });
+  });
+</script>
+</body>
+</html>
